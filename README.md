@@ -13,7 +13,7 @@ A few notes: </h3>
 	<li>There is no warranty</li>
 	<li>I am <bold>NOT</bold> responsible if the 'powers that be' determine this to be cheating, use at your own risk</li>
 	<li>The IP scripts WILL overwrite any contents you have in the corresponding files that they edit. </li>
-	<li>AutoSnort should only be run by team capitans. It is complex and <underline>WILL</underline> break your system if not set up correctly.</li>
+	<li>AutoSnort should only be run by team capitans. It is complex and <ins>WILL</ins> break your system if not set up correctly.</li>
 	</ul></h2>
 <h3>Good luck and happy hacking
 
