@@ -1,10 +1,10 @@
 #/bin/bash
-echo "DO NOT USE THIS IF YOUR CONNECTION IS WORKING\n\n"
-echo "What interface do you need to set up? (probably eth0) "
+echo -e "DO NOT USE THIS IF YOUR CONNECTION IS WORKING\n\n"
+echo -e "What interface do you need to set up? (probably eth0) "
 read interface
-echo "What IP address do you need? "
+echo -e "\nWhat IP address do you need? "
 read ipaddr
-echo "What team are you? "
+echo -e "\nWhat team are you? "
 read team
 
 echo "iface $interface inet static" > /etc/network/interfaces
