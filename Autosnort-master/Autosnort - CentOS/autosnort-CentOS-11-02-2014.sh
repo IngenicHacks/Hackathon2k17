@@ -446,7 +446,7 @@ tar -xzvf $snorttar &>> $logfile
 error_check 'Untar of Snort'
 
 dir_check $snort_basedir
-
+snortver=snort-2.9.9.0
 cd $snortver
 
 print_status "configuring snort (options --prefix=$snort_basedir and --enable-sourcefire), making and installing. This will take a moment or two."
