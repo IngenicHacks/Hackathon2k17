@@ -1,0 +1,114 @@
+#!/bin/bash
+#
+#Snortbarn		Startup script for Snort and Barnyard2
+# chkconfig: - 85 15
+# description:	This script provided by Autosnort. It is \
+#				Responsible for Starting/Stopping Both   \
+#				Snort and Barnyard2.
+# processnames: snort, barnyard2
+# config: snort_basedir/etc/banyard2.conf 
+# config: snort_basedir/etc/snort.conf
+# pidfile: /var/run/snort_snort_iface.pid
+# pidfile: /var/run/barnyard2_hstnm-snort_iface.pid
+### BEGIN INIT INFO
+# Provides: snort, barnyard2
+# Required-Start: $local_fs $remote_fs $network $named $syslog $time
+# Required-Stop: $local_fs $remote_fs $network $named $syslog $time
+# Default-Start:     3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: start and stop snort and barnyard2
+# Description: Snort is a powerful open-source Intrusion Detection System.
+# Barnyard2 is a tool for processing snort unified2 log files.
+### END INIT INFO
+
+#The location of the snort binary
+SNORTD=snort_basedir/bin/snort
+#The location of the barnyard2 binary
+BY2D=/usr/local/bin/barnyard2
+#Command line execution options for snort
+OPTIONS="-D -u snort -g snort -c snort_basedir/etc/snort.conf -i snort_iface"
+#Command line execution options for barnyard 2
+OPTIONS2="-c snort_basedir/etc/barnyard2.conf -d /var/log/snort -f snort.u2 -w /var/log/snort/barnyard2.waldo -D"
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+do_start()
+{
+    echo "Starting Snort and Barnyard" 
+    /sbin/ifconfig snort_iface up -arp -multicast promisc
+    $SNORTD $OPTIONS
+	if [ $? -eq 0 ]; then
+		echo "Snort successfully started."
+		logger "Snort Started!"
+	else
+		echo "Snort failed to start!"
+	fi
+    $BY2D $OPTIONS2
+	if [ $? -eq 0 ]; then
+		echo "Barnyard2 successfully started."
+		logger "Barnyard2 Started!"
+	else
+		echo "Barnyard2 failed to start!"
+	fi
+    return 0
+}
+
+do_status()
+{
+	pidof snort
+	if [ $? -eq 0 ]; then
+		
+		echo "Snort is running with a pid of `pidof snort`"
+	else
+		echo "Snort is not running."
+	fi
+	pidof barnyard2
+	if [ $? -eq 0 ]; then
+		
+		echo "Barnyard2 is running with a pid of `pidof barnyard2`"
+	else
+		echo "Barnyard2 is not running."
+	fi
+}
+
+do_stop()
+{
+    echo "Stopping Snort and Barnyard" ""
+    kill $(pidof snort) 2> /dev/null
+	if [ $? -eq 0 ]; then
+		echo "Snort successfully killed."
+		logger "Killed Snort."
+	else
+		echo "Snort could not be killed! (Permissions? Already dead?)"
+	fi
+    kill $(pidof barnyard2) 2> /dev/null
+	if [ $? -eq 0 ]; then
+		echo "Barnyard2 successfully killed."
+		logger "Killed Barnyard2."
+	else
+		echo "Barnyard2 could not be killed! (Permissions? Already dead?)"
+	fi
+    return 0
+}
+
+case "$1" in
+ start)
+    do_start
+    ;;
+ stop)
+    do_stop
+    ;;
+ restart)
+    do_stop
+    do_start
+    ;;
+ status)
+	do_status
+	;;
+ *)
+    echo "Usage: snortbarn {start|stop|restart|status}" >&2
+    exit 3
+    ;;
+esac
+exit 0
