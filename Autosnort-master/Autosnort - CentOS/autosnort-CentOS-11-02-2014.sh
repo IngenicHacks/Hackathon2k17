@@ -409,7 +409,7 @@ error_check 'Download of DAQ'
 
 tar -xzvf $daqtar &>> $logfile
 error_check 'Untar of DAQ'
-
+daqver=daq-2.0.6
 cd $daqver
 
 print_status "Configuring, making, compiling and linking DAQ libraries. This will take a moment or two.."
