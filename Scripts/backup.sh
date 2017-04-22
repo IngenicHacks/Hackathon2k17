@@ -4,7 +4,7 @@ backup_files="/home /etc /root /var /opt"
 dest=$(pwd)
 time=$(date +%R)
 hostname=$(hostname -s)
-archive="$time_$hostname.tgz"
+archive="$time-$hostname.tgz"
 
 echo -e "Backing up $backup_files ..."
 tar czf $dest/$archive $backup_files
