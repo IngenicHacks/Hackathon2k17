@@ -379,7 +379,7 @@ cd /usr/src
 
 print_status "Acquiring $snortver and $daqver from snort.org.."
 
-snorttar = 2.9.9.0.tar.gz
+snorttar=snort-2.9.9.0.tar.gz
 
 wget http://www.snort.org/downloads/snort/$snorttar -O $snorttar &>> $logfile
 if [ $? -ne 0 ]; then
