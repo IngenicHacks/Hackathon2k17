@@ -128,14 +128,14 @@ fi
 
 print_status "Checking for config file.."
 execdir=`pwd`
-if [ ! -f $execdir/full_autosnort.conf ]; then
-	print_error "full_autosnort.conf was NOT found in $execdir. The script relies HEAVILY on this config file. Please make sure it is in the same directory you are executing the full-autosnort-CentOS script!"
+if [ ! -f "$execdir"/full_autosnort.conf ]; then
+	print_error "full_autosnort.conf was NOT found in "$execdir". The script relies HEAVILY on this config file. Please make sure it is in the same directory you are executing the full-autosnort-CentOS script!"
 	exit 1
 else
 	print_good "Found config file."
 fi
 
-source $execdir/full_autosnort.conf
+source "$execdir"/full_autosnort.conf
 
 ########################################
 
@@ -759,13 +759,13 @@ print_status "Adding Sys V/Systemd script for persistence"
 print_notification "Please be aware $snort_iface will be configured to boot in promiscuous mode, and will NOT respond to multicast or ARP requests."
 print_notification "This can be changed by modifying the init script (CentOS/Redhat 6 and below - /etc/init.d/snortbarn) or the systemd script (CentOS/Redhat 7 and above - /usr/lib/systemd/system/snortbarn.service)"
 
-cd $execdir
+cd "$execdir"
 if [[ "$release" -ge "7" ]]; then
 	if [ -f /usr/lib/systemd/system/snortbarn.service ]; then
 		print_notification "snortbarn.service systemd script already installed."
 	else
-		if [ ! -f $execdir/snortbarn.service ]; then
-			print_error "Unable to find $execdir/snortbarn.service. Please ensure the snort.service file is there and try again."
+		if [ ! -f "$execdir"/snortbarn.service ]; then
+			print_error "Unable to find "$execdir"/snortbarn.service. Please ensure the snort.service file is there and try again."
 			exit 1
 		else
 			print_good "Found snortbarn.service systemd script."
@@ -786,8 +786,8 @@ else
 	if [ -f /etc/init.d/snortbarn ]; then
 	print_notification "Snortbarn init script already installed."
 	else	
-		if [ ! -f $execdir/snortbarn ]; then
-			print_error" Unable to find $execdir/snortbarn. Please ensure snortbarn file is there and try again."
+		if [ ! -f "$execdir"/snortbarn ]; then
+			print_error" Unable to find "$execdir"/snortbarn. Please ensure snortbarn file is there and try again."
 			exit 1
 		else
 			print_good "Found snortbarn init script."
@@ -813,7 +813,7 @@ fi
 ########################################
 
 #Perform the interface installation step here. first, we drop back to the initial working directory where autosnort was ran from.
-cd $execdir
+cd "$execdir"
 
 case $ui_choice in
 	1)
