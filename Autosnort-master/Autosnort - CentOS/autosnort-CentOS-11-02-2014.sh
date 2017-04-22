@@ -389,7 +389,7 @@ else
     print_good "Downloaded $snorttar to /usr/src."
 fi
 
-
+daqtar=daq-2.0.6.tar.gz
 
 wget http://www.snort.org/downloads/snort/$daqtar -O $daqtar &>> $logfile
 if [ $? -ne 0 ]; then
