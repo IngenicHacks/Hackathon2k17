@@ -1,3 +1,5 @@
+#!/bin/bash
+
 backup_files="/home /etc /root /var /opt"
 dest=$(pwd)
 time=$(date +%R)
